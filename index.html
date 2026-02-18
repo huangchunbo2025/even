@@ -1,0 +1,941 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>From CDP to CIP | Executive Series 2026</title>
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --ink: #0f1b2d;
+      --muted: #4f6078;
+      --line: #d6dfeb;
+      --card: #ffffff;
+      --radius: 18px;
+      --shadow: 0 12px 30px rgba(10, 31, 68, 0.08);
+      --brand: #0a66ff;
+      --brand-deep: #0b3f8a;
+      --ok: #0a9d67;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 10% 0%, #dceaff 0, transparent 42%),
+        radial-gradient(circle at 100% 10%, #d8f4ff 0, transparent 28%),
+        var(--bg);
+      line-height: 1.6;
+    }
+
+    .container {
+      width: min(1120px, 92vw);
+      margin: 0 auto;
+    }
+
+    .hero {
+      padding: 72px 0 44px;
+    }
+
+    .hero-box {
+      background: linear-gradient(135deg, #051b44 0%, #0d3372 55%, #0a66ff 100%);
+      color: #fff;
+      border-radius: 28px;
+      padding: 54px 48px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 24px 50px rgba(7, 31, 77, 0.3);
+    }
+
+    .hero-box::after {
+      content: "";
+      position: absolute;
+      width: 340px;
+      height: 340px;
+      border-radius: 999px;
+      background: radial-gradient(circle, rgba(255,255,255,.22) 0%, rgba(255,255,255,0) 68%);
+      right: -90px;
+      top: -90px;
+    }
+
+    .kicker {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.16);
+      font-size: 13px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-size: clamp(30px, 5vw, 50px);
+      line-height: 1.15;
+      margin: 0 0 16px;
+      max-width: 900px;
+    }
+
+    .hero p {
+      margin: 0;
+      max-width: 860px;
+      font-size: 18px;
+      color: #e6efff;
+    }
+
+    .hero-layout {
+      display: grid;
+      grid-template-columns: minmax(220px, 360px) 1fr;
+      align-items: start;
+      gap: 30px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-logo-wrap {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    .hero-content {
+      min-width: 0;
+    }
+
+    .event-logo {
+      display: block;
+      width: min(340px, 100%);
+      height: auto;
+      margin: 0;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .partner-title {
+      margin: 0 0 14px;
+      font-size: clamp(20px, 3vw, 34px);
+      font-weight: 800;
+      letter-spacing: .02em;
+      text-transform: uppercase;
+      color: #fff;
+    }
+
+    .meta {
+      margin-top: 20px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      justify-items: center;
+    }
+
+    .chip {
+      display: inline-block;
+      background: rgba(255,255,255,.14);
+      border: 1px solid rgba(255,255,255,.26);
+      border-radius: 12px;
+      padding: 9px 13px;
+      font-size: 14px;
+      width: 100%;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .cta {
+      margin-top: 24px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .cta .btn {
+      flex: 0 0 auto;
+      text-align: center;
+    }
+
+    .btn {
+      display: inline-block;
+      text-decoration: none;
+      border-radius: 12px;
+      padding: 12px 18px;
+      font-weight: 600;
+      transition: transform .2s ease;
+    }
+
+    .btn:hover { transform: translateY(-2px); }
+
+    .btn-primary {
+      background: #fff;
+      color: var(--brand-deep);
+    }
+
+    .btn-ghost {
+      color: #fff;
+      border: 1px solid rgba(255,255,255,.4);
+      background: rgba(255,255,255,.08);
+    }
+
+    section { padding: 24px 0; }
+
+    h2 {
+      margin: 0 0 14px;
+      font-size: clamp(24px, 3vw, 34px);
+      line-height: 1.2;
+    }
+
+    .sub {
+      color: var(--muted);
+      margin: 0 0 20px;
+      max-width: 860px;
+    }
+
+    .grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 20px;
+      box-shadow: var(--shadow);
+    }
+
+    .card h3 {
+      margin: 0 0 8px;
+      font-size: 19px;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .agenda-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .agenda-item {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 14px 16px;
+      display: grid;
+      grid-template-columns: 92px 1fr;
+      gap: 12px;
+    }
+
+    .time {
+      font-weight: 700;
+      color: var(--brand);
+      font-size: 14px;
+    }
+
+    .speaker-name {
+      font-weight: 700;
+      margin-bottom: 4px;
+      color: var(--ink);
+    }
+
+    .list {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+    }
+
+    .series-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .series-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: #fff;
+      text-decoration: none;
+      color: var(--ink);
+      box-shadow: var(--shadow);
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    .series-btn.active {
+      border-color: #9ec0ff;
+      background: #edf4ff;
+    }
+
+    .city-icon {
+      width: 24px;
+      height: 24px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 auto;
+      background: #eef4ff;
+      border: 1px solid #cfe0ff;
+    }
+
+    .city-icon svg {
+      width: 14px;
+      height: 14px;
+      stroke: #1a4fad;
+      fill: none;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .series-city {
+      font-weight: 700;
+    }
+
+    .series-date {
+      color: var(--brand);
+      font-weight: 600;
+    }
+
+    .badge {
+      display: inline-block;
+      margin-top: 4px;
+      width: fit-content;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .02em;
+      border-radius: 999px;
+      padding: 3px 9px;
+      border: 1px solid;
+    }
+
+    .done {
+      color: var(--ok);
+      border-color: #95e3c6;
+      background: #effbf6;
+    }
+
+    .live {
+      color: #0d51cd;
+      border-color: #9ec0ff;
+      background: #edf4ff;
+    }
+
+    .upcoming {
+      color: #6b5f12;
+      border-color: #ebdb87;
+      background: #fff8d8;
+    }
+
+    .city-panel {
+      display: none;
+    }
+
+    .city-panel.active {
+      display: block;
+    }
+
+    .banner {
+      margin: 24px 0 52px;
+      background: linear-gradient(135deg, #0a58e9 0%, #09a7ff 100%);
+      color: #fff;
+      border-radius: 24px;
+      padding: 34px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .banner p {
+      margin: 8px 0 0;
+      opacity: .9;
+    }
+
+    .media-grid {
+      display: grid;
+      gap: 14px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .media-card {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 14px;
+      box-shadow: var(--shadow);
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+
+    .media-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 28px rgba(10, 31, 68, 0.12);
+    }
+
+    .media-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .media-logo {
+      width: 26px;
+      height: 26px;
+      border-radius: 6px;
+      border: 1px solid var(--line);
+      background: #fff;
+      object-fit: contain;
+      flex: 0 0 auto;
+    }
+
+    .media-name {
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    .media-title {
+      margin: 0;
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    .map-embed {
+      width: 100%;
+      height: 320px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      margin-top: 12px;
+      background: #fff;
+    }
+
+    footer {
+      text-align: center;
+      color: #6c7b93;
+      font-size: 13px;
+      padding: 16px 0 34px;
+    }
+
+    @media (max-width: 900px) {
+      .grid-3, .grid-2 { grid-template-columns: 1fr; }
+      .hero-box { padding: 36px 24px; }
+      .hero-layout {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+      .hero-logo-wrap {
+        justify-content: center;
+      }
+      .event-logo {
+        width: min(320px, 100%);
+      }
+      .meta {
+        grid-template-columns: 1fr;
+      }
+      .cta {
+        flex-direction: column;
+      }
+      .banner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .media-grid {
+        grid-template-columns: 1fr;
+      }
+      .agenda-item {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="container">
+      <div class="hero-box">
+        <div class="hero-layout">
+          <div class="hero-logo-wrap">
+            <img class="event-logo" src="assets/logo.avif" alt="Microsoft X Socialhub.AI event logo" />
+          </div>
+          <div class="hero-content">
+            <p class="partner-title">Socialhub.AI X Microsoft</p>
+            <h1>From CDP to CIP: The Customer Engagement Layer for Retail Growth</h1>
+            <p>A global executive series on how leading retail brands are building a governed, AI-powered Customer Engagement Layer to drive measurable growth.</p>
+          </div>
+        </div>
+        <div class="meta">
+          <span class="chip">2026 Global Tour</span>
+          <span class="chip">Invite-Only Executive Sessions</span>
+          <span class="chip">Retail, Loyalty, Growth, and Operations Leaders</span>
+        </div>
+        <div class="cta">
+          <a class="btn btn-primary" href="#series-plan">View Tour Plan</a>
+          <a class="btn btn-ghost" href="#register">Register for Redmond Stop</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section>
+      <div class="container">
+        <h2>Evens Focus</h2>
+        <p class="sub">Each stop is designed for executive-level discussion and practical alignment across marketing performance, customer experience, loyalty, store operations, and revenue growth.</p>
+        <div class="grid grid-3">
+          <article class="card">
+            <h3>Governed Customer Intelligence</h3>
+            <p>Build trusted data, identity, and governance foundations for scalable engagement decisions.</p>
+          </article>
+          <article class="card">
+            <h3>AI-Powered Engagement</h3>
+            <p>Turn customer signals into always-on targeting, personalization, and loyalty growth actions.</p>
+          </article>
+          <article class="card">
+            <h3>Operational Growth Playbook</h3>
+            <p>Align business and digital teams with repeatable practices that improve marketing ROI.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="series-plan">
+      <div class="container">
+        <h2>2026 Global Tour</h2>
+        <p class="sub">Planned global route based on your timeline. Month-only stops are currently marked as TBD date.</p>
+        <div class="series-buttons">
+          <a class="series-btn" data-city="ny" href="#city-details">
+            <span class="city-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M8 20h8M10 20v-4h4v4M11 16l-1-5h4l-1 5M12 11V7M12 7l2-1M12 7l-2-1M12 5l1-2M12 5l-1-2"/></svg>
+            </span>
+            <span class="series-city">New York</span>
+            <span class="series-date">Jan 12, 2026</span>
+            <span class="badge done">Done</span>
+          </a>
+          <a class="series-btn active" data-city="redmond" href="#city-details">
+            <span class="city-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M4 20h16M6 20V6h12v14M9 10h2M13 10h2M9 14h2M13 14h2"/></svg>
+            </span>
+            <span class="series-city">Redmond</span>
+            <span class="series-date">Feb 27, 2026</span>
+            <span class="badge live">Open</span>
+          </a>
+          <a class="series-btn" href="#">
+            <span class="city-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M4 18c2 0 2-2 4-2s2 2 4 2 2-2 4-2 2 2 4 2M9 14c2 0 3-1 4-3l3 1-1-4-3-1-2 2-1 5z"/></svg>
+            </span>
+            <span class="series-city">Singapore</span>
+            <span class="series-date">Mar 2026</span>
+            <span class="badge upcoming">Upcoming</span>
+          </a>
+          <a class="series-btn" href="#">
+            <span class="city-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M3 20h18M5 20V9h4v11M11 20V5h4v15M17 20v-8h2v8"/></svg>
+            </span>
+            <span class="series-city">Hong Kong</span>
+            <span class="series-date">Apr 2026</span>
+            <span class="badge upcoming">Upcoming</span>
+          </a>
+          <a class="series-btn" href="#">
+            <span class="city-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M3 20h18M6 20V11h4v9M12 20V4h3v16M17 20V9h2v11M13 4l2-2"/></svg>
+            </span>
+            <span class="series-city">Toronto</span>
+            <span class="series-date">Apr 2026</span>
+            <span class="badge upcoming">Upcoming</span>
+          </a>
+          <a class="series-btn" href="#">
+            <span class="city-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M4 20h16M7 20v-4h10v4M6 12h12M5 16h14M8 12l4-3 4 3"/></svg>
+            </span>
+            <span class="series-city">Seoul</span>
+            <span class="series-date">May 2026</span>
+            <span class="badge upcoming">Upcoming</span>
+          </a>
+          <a class="series-btn" href="#">
+            <span class="city-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M6 20h12M9 20l3-14 3 14M10 14h4M11 10h2M9 6h6"/></svg>
+            </span>
+            <span class="series-city">Tokyo</span>
+            <span class="series-date">Jun 2026</span>
+            <span class="badge upcoming">Upcoming</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <h2>Media Coverage</h2>
+        <div class="media-grid">
+          <a class="media-card" href="https://finance.yahoo.com/news/socialhub-ai-strengthens-microsoft-alliance-133700329.html" target="_blank" rel="noopener noreferrer">
+            <div class="media-head">
+              <img class="media-logo" src="https://www.google.com/s2/favicons?domain=finance.yahoo.com&sz=128" alt="Yahoo Finance logo" />
+              <span class="media-name">Yahoo Finance</span>
+            </div>
+            <p class="media-title">Socialhub.AI strengthens Microsoft alliance to launch AI-native Customer Intelligence Platform on Azure.</p>
+          </a>
+
+          <a class="media-card" href="https://www.morningstar.com/news/pr-newswire/20260203ph77512/socialhubai-strengthens-microsoft-alliance-to-launch-ai-native-customer-intelligence-platform-on-azure" target="_blank" rel="noopener noreferrer">
+            <div class="media-head">
+              <img class="media-logo" src="https://www.google.com/s2/favicons?domain=morningstar.com&sz=128" alt="Morningstar logo" />
+              <span class="media-name">Morningstar</span>
+            </div>
+            <p class="media-title">Socialhub.AI strengthens Microsoft alliance to launch AI-native Customer Intelligence Platform on Azure.</p>
+          </a>
+
+          <a class="media-card" href="https://www.morningstar.com/news/pr-newswire/20260203ph77512/socialhubai-strengthens-microsoft-alliance-to-launch-ai-native-customer-intelligence-platform-on-azure" target="_blank" rel="noopener noreferrer">
+            <div class="media-head">
+              <img class="media-logo" src="https://www.google.com/s2/favicons?domain=morningstar.com&sz=128" alt="Morningstar logo" />
+              <span class="media-name">Morningstar (PR Newswire)</span>
+            </div>
+            <p class="media-title">PR Newswire coverage reposted on Morningstar with full alliance announcement details.</p>
+          </a>
+
+          <a class="media-card" href="https://www.benzinga.com/pressreleases/26/02/n50331057/socialhub-ai-strengthens-microsoft-alliance-to-launch-ai-native-customer-intelligence-platform-on-" target="_blank" rel="noopener noreferrer">
+            <div class="media-head">
+              <img class="media-logo" src="https://www.google.com/s2/favicons?domain=benzinga.com&sz=128" alt="Benzinga logo" />
+              <span class="media-name">Benzinga</span>
+            </div>
+            <p class="media-title">Press release coverage on the Microsoft x Socialhub.AI alliance and CIP launch on Azure.</p>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <div id="city-details"></div>
+
+    <div id="city-ny" class="city-panel">
+      <section>
+        <div class="container">
+          <h2>Microsoft X Socialhub.AI NRF Lunch Party: From CDP to CIP</h2>
+          <p class="sub">Monday, January 12, 2026 | 11:30 AM - 1:30 PM (GMT-5) | 11 Times Sq, New York, New York</p>
+          <div class="card">
+            <h3 style="margin-top:0;">Why This Event Matters</h3>
+            <p>Enterprise AI was meant to unlock growth, yet most organizations are stuck in pilot purgatory.</p>
+            <ul class="list" style="margin-top:10px;">
+              <li>74% of AI initiatives never scale beyond pilots.</li>
+              <li>95% fail to deliver measurable ROI.</li>
+            </ul>
+            <p style="margin-top:10px;">The problem is not algorithms. It is architecture. Customer data remains fragmented across CRM, CDP, loyalty systems, marketing tools, regions, and clouds.</p>
+            <p style="margin-top:10px;">Together with Microsoft, Socialhub.AI presents the Customer Intelligence Platform (CIP), an AI-native intelligence layer above CRM, CDP, and Marketing Automation to unify data, interpret intent, and orchestrate actions in real time.</p>
+            <p style="margin-top:10px;"><strong>Not another tool. A structural reset.</strong></p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="container">
+          <h2>Industry Leaders Attending</h2>
+          <div class="grid grid-2">
+            <article class="card">
+              <div class="speaker-name">Mahesh Neelakantan</div>
+              <p>Microsoft Industry Advisor, Retail and Consumer Goods. 25+ years focused on digital transformation, innovation, and growth strategies for global retail and consumer brands.</p>
+            </article>
+            <article class="card">
+              <div class="speaker-name">Bill Huang</div>
+              <p>CEO and Founder, Socialhub.AI. 25 years building and scaling enterprise technology businesses across China, Southeast Asia, and the United States.</p>
+            </article>
+            <article class="card">
+              <div class="speaker-name">David Kwok</div>
+              <p>Head of AI and Digital Native Pursuit, Microsoft. Experienced in entrepreneurship, innovation ecosystems, and cross-sector collaboration.</p>
+            </article>
+            <article class="card">
+              <div class="speaker-name">Jason Kui</div>
+              <p>Vice President, iSoftStone. AI-driven IT executive with 20+ years leading enterprise cloud, data, and AI transformation programs.</p>
+            </article>
+            <article class="card">
+              <div class="speaker-name">Tommy (Tong) Liu</div>
+              <p>BD VP, Socialhub.AI. Background across KPMG, EY, and Microsoft leadership, with deep expertise in enterprise SaaS transformation on the Microsoft ecosystem.</p>
+            </article>
+            <article class="card">
+              <div class="speaker-name">Adam Podber</div>
+              <p>Senior Technology Executive with deep global retail and consumer experience, focused on transformation and high-impact partner delivery.</p>
+            </article>
+            <article class="card">
+              <div class="speaker-name">Sherry Gong</div>
+              <p>Solution Director, Socialhub.AI. 10+ years in Martech solutions across CRM, CDP, MA, SCRM, CEM, and DMP for FMCG, catering, babycare, fashion, luxury, beauty, and auto.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="container">
+          <h2>What You Will Experience</h2>
+          <div class="card">
+            <p>This is not a conceptual AI talk. You will see:</p>
+            <ul class="list" style="margin-top:10px;">
+              <li>How CIP emerges as the next architecture after CRM and CDP.</li>
+              <li>Why AI-native intelligence must be embedded, not appended.</li>
+              <li>How real-time customer signals become real-time decisions.</li>
+              <li>What it takes to operationalize AI at enterprise scale in 2026.</li>
+            </ul>
+            <p style="margin-top:10px;">You will leave with a clear model for moving:</p>
+            <ul class="list" style="margin-top:10px;">
+              <li>From fragmented tools to unified intelligence.</li>
+              <li>From dashboards to autonomous decisioning.</li>
+              <li>From campaigns to continuous customer orchestration.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="container">
+          <h2>New York Agenda</h2>
+          <div class="agenda-list">
+            <article class="agenda-item">
+              <div class="time">11:00-11:30 AM</div>
+              <div>
+                <strong>Welcome and Check-in</strong>
+                <p>Tea break with snacks during check-in.</p>
+              </div>
+            </article>
+            <article class="agenda-item">
+              <div class="time">11:30-11:45 AM</div>
+              <div>
+                <strong>Microsoft Keynote: Enabling Retail AI at Scale</strong>
+                <p>How Azure powers the next wave of retail intelligence with the right security, governance, and operating model.</p>
+              </div>
+            </article>
+            <article class="agenda-item">
+              <div class="time">11:45 AM-12:00 PM</div>
+              <div>
+                <strong>Socialhub.AI Keynote: Step Into the New Era of Retail Customer Intelligence</strong>
+                <p>Sherry Gong outlines why CIP is emerging beyond CRM and CDP, and how an AI-native platform on Azure connects loyalty, data, and marketing into one measurable system.</p>
+              </div>
+            </article>
+            <article class="agenda-item">
+              <div class="time">12:00-12:30 PM</div>
+              <div>
+                <strong>Executive Roundtable: Scaling Retail AI - From Pilot to Production</strong>
+                <p>Practical playbook on data fragmentation, integration, compliance, and repeatable outcomes with Microsoft and industry leaders.</p>
+              </div>
+            </article>
+            <article class="agenda-item">
+              <div class="time">12:30-12:40 PM</div>
+              <div>
+                <strong>Microsoft X Socialhub.AI Partnership Moment</strong>
+                <p>Formal signing, photos, and remarks with product and solution announcement.</p>
+              </div>
+            </article>
+            <article class="agenda-item">
+              <div class="time">12:40-12:50 PM</div>
+              <div>
+                <strong>Q&A and Executive Takeaways</strong>
+                <p>Open discussion on implementation, integration, and operating models.</p>
+              </div>
+            </article>
+            <article class="agenda-item">
+              <div class="time">12:50-1:15 PM</div>
+              <div>
+                <strong>Networking, Deep Dives and Next Steps</strong>
+                <p>Pizza, drinks, snacks, and follow-up discussions with Microsoft and Socialhub.AI teams.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="container">
+          <h2>Who Should Attend</h2>
+          <div class="card">
+            <ul class="list">
+              <li>C-level executives (CMO, CIO, CDO, CTO).</li>
+              <li>Heads of Digital, Growth, CRM, Loyalty, Data, or AI.</li>
+              <li>Enterprise architects and platform owners.</li>
+              <li>Retail, consumer, and multi-brand operators preparing for 2026.</li>
+            </ul>
+            <p style="margin-top:10px;">If you are questioning whether your current CRM/CDP stack can truly support AI-driven growth, this session is for you.</p>
+            <p style="margin-top:10px;"><strong>Tip:</strong> Please bring a physical ID on the day of the event for Microsoft office entry.</p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="container">
+          <h2>About Socialhub.AI and NRF 2026</h2>
+          <div class="grid grid-2">
+            <article class="card">
+              <h3>About Socialhub.AI</h3>
+              <p>Socialhub.AI is the world's first Customer Intelligence Platform (CIP), an AI-native decision layer unifying CRM, CDP, loyalty, and marketing automation for real-time enterprise intelligence.</p>
+            </article>
+            <article class="card">
+              <h3>Continue the Conversation</h3>
+              <p>Meet us at NRF 2026 Startup Hub Booth #722, January 11-13, 2026, at Jacob K. Javits Convention Center, New York.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div id="city-redmond" class="city-panel active">
+      <section>
+        <div class="container">
+          <h2>Redmond Executive Session Details</h2>
+          <p class="sub">An executive discussion on how leading retail brands are building a governed, AI-powered Customer Engagement Layer to drive measurable growth.</p>
+          <div class="grid grid-2">
+            <article class="card">
+              <h3>Who This Session Is For</h3>
+              <p>CMOs, COOs, business leaders, marketing directors, growth and lifecycle leaders, and customer engagement executives of global brands.</p>
+            </article>
+            <article class="card">
+              <h3>Session Format</h3>
+              <p>Invite-only executive session with limited seating. All confirmed registrants will receive access to the official event recording.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="container">
+          <h2>Redmond Agenda</h2>
+          <div class="agenda-list">
+            <article class="agenda-item">
+              <div class="time">2:00 PM</div>
+              <div>
+                <strong>Check In</strong>
+              </div>
+            </article>
+            <article class="agenda-item">
+              <div class="time">2:30 PM</div>
+              <div>
+                <strong>Building the Customer Engagement Layer on Microsoft Intelligence Cloud</strong>
+                <p>How retail organizations are establishing trusted customer data, identity, and governance foundations to enable scalable marketing and engagement.</p>
+              </div>
+            </article>
+            <article class="agenda-item">
+              <div class="time">2:40 PM</div>
+              <div>
+                <strong>From Customer Signals to Growth Impact</strong>
+                <p>What changes when customer intelligence becomes embedded in daily marketing and business decisions across targeting, personalization, loyalty, and store engagement.</p>
+              </div>
+            </article>
+            <article class="agenda-item">
+              <div class="time">3:00 PM</div>
+              <div>
+                <strong>Panel Discussion: Scaling Customer Engagement from Pilot to Always-On</strong>
+                <p>Common blockers, real-world lessons, and a practical marketing playbook for scaling engagement, improving ROI, and aligning business and digital teams.</p>
+              </div>
+            </article>
+            <article class="agenda-item">
+              <div class="time">4:00 PM</div>
+              <div>
+                <strong>Free Talk and Executive Networking</strong>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="container">
+          <h2>Redmond Speakers</h2>
+          <div class="grid grid-2">
+            <article class="card">
+              <div class="speaker-name">David Hsieh</div>
+              <p>Digital Native Manager Enterprise, Microsoft. Driving business growth through AI and cloud innovation across enterprise retail accounts.</p>
+            </article>
+            <article class="card">
+              <div class="speaker-name">Junwei Zhang, PhD</div>
+              <p>Senior Member, IEEE. AI researcher bridging academic insight and real-world deployment with a strong user-centered perspective.</p>
+            </article>
+            <article class="card">
+              <div class="speaker-name">James van Leuven</div>
+              <p>Senior Director of AI-Powered Enterprise Content Solutions. Leading AI-driven content and engagement initiatives across global retail and enterprise organizations.</p>
+            </article>
+            <article class="card">
+              <div class="speaker-name">Cathy He</div>
+              <p>Global Partnership Lead, Socialhub.AI. Bridging AI, CRM, CDP, and marketing strategy to translate technology into measurable customer growth.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="container">
+          <h2>Redmond Venue and Contact</h2>
+          <div class="card">
+            <ul class="list">
+              <li>Microsoft Building 6, 15745 NE 36th St, Redmond, WA 98052, United States.</li>
+              <li>Session time: Friday, February 27, 2026, 2:00 PM - 4:00 PM (PT).</li>
+              <li>Questions: <a href="mailto:business@socialhub.ai">business@socialhub.ai</a></li>
+            </ul>
+            <iframe
+              class="map-embed"
+              src="https://maps.google.com/maps?q=47.6420642,-122.1313861&z=17&output=embed"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              title="Microsoft Building 6 Map">
+            </iframe>
+            <p style="margin-top:10px;">
+              <a href="https://www.google.com/maps/search/?api=1&query=47.6420642%2C-122.1313861&query_place_id=ChIJ5yf8BjBtkFQRV09DvxGWfvU" target="_blank" rel="noopener noreferrer">Open in Google Maps</a>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="register">
+        <div class="container">
+          <div class="banner">
+            <div>
+              <h2 style="margin:0; color:#fff;">Register for the Redmond Stop</h2>
+              <p>Invite-only with limited seating. Confirmed registrants receive official event recording access.</p>
+            </div>
+            <a class="btn btn-primary" href="https://luma.com/07dab3al?tk=IiniNR">Submit Registration</a>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    © 2026 Socialhub.AI Executive Series
+  </footer>
+  <script>
+    (function () {
+      const cityButtons = document.querySelectorAll('.series-btn[data-city]');
+      const cityPanels = {
+        ny: document.getElementById('city-ny'),
+        redmond: document.getElementById('city-redmond')
+      };
+
+      function showCity(city) {
+        cityButtons.forEach((btn) => {
+          btn.classList.toggle('active', btn.dataset.city === city);
+        });
+        Object.keys(cityPanels).forEach((key) => {
+          cityPanels[key].classList.toggle('active', key === city);
+        });
+      }
+
+      cityButtons.forEach((btn) => {
+        btn.addEventListener('click', function (event) {
+          event.preventDefault();
+          showCity(btn.dataset.city);
+          const anchor = document.getElementById('city-details');
+          if (anchor) {
+            anchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
+
