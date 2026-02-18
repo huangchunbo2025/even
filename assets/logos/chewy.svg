@@ -1,0 +1,6 @@
+﻿<svg xmlns='http://www.w3.org/2000/svg' width='360' height='120' viewBox='0 0 360 120'>
+  <rect x='1' y='1' width='358' height='118' rx='16' fill='#ffffff' stroke='#bfd2ff' stroke-width='2'/>
+  <rect x='18' y='18' width='84' height='84' rx='14' fill='#246BFD'/>
+  <text x='60' y='72' text-anchor='middle' font-family='Segoe UI, Arial, sans-serif' font-size='30' font-weight='700' fill='#ffffff'>C</text>
+  <text x='120' y='73' font-family='Segoe UI, Arial, sans-serif' font-size='32' font-weight='700' fill='#246BFD'>Chewy</text>
+</svg>
